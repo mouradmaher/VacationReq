@@ -1,0 +1,93 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Requests_DBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="DepartmentTB">
+    <Key>
+      <PropertyRef Name="Dep_ID" />
+    </Key>
+    <Property Name="Dep_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Dep_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="EmployeeTBs" Relationship="Self.FK_EmployeeTB_DepartmentTB" FromRole="DepartmentTB" ToRole="EmployeeTB" />
+  </EntityType>
+  <EntityType Name="EmployeeTB">
+    <Key>
+      <PropertyRef Name="Emp_ID" />
+    </Key>
+    <Property Name="Emp_ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Emp_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Emp_Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Dep_ID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="DepartmentTB" Relationship="Self.FK_EmployeeTB_DepartmentTB" FromRole="EmployeeTB" ToRole="DepartmentTB" />
+    <NavigationProperty Name="RequestsTBs" Relationship="Self.FK_RequestsTB_EmployeeTB" FromRole="EmployeeTB" ToRole="RequestsTB" />
+  </EntityType>
+  <EntityType Name="RequestsTB">
+    <Key>
+      <PropertyRef Name="Req_ID" />
+    </Key>
+    <Property Name="Req_ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Emp_ID" Type="Int64" Nullable="false" />
+    <Property Name="Date_From" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Date_To" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Returning_Date" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="DateOfSub" Type="DateTime" Precision="0" Nullable="false" />
+    <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="TotalDays" Type="Int32" />
+    <NavigationProperty Name="EmployeeTB" Relationship="Self.FK_RequestsTB_EmployeeTB" FromRole="RequestsTB" ToRole="EmployeeTB" />
+  </EntityType>
+  <Association Name="FK_EmployeeTB_DepartmentTB">
+    <End Role="DepartmentTB" Type="Self.DepartmentTB" Multiplicity="1" />
+    <End Role="EmployeeTB" Type="Self.EmployeeTB" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DepartmentTB">
+        <PropertyRef Name="Dep_ID" />
+      </Principal>
+      <Dependent Role="EmployeeTB">
+        <PropertyRef Name="Dep_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RequestsTB_EmployeeTB">
+    <End Role="EmployeeTB" Type="Self.EmployeeTB" Multiplicity="1" />
+    <End Role="RequestsTB" Type="Self.RequestsTB" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EmployeeTB">
+        <PropertyRef Name="Emp_ID" />
+      </Principal>
+      <Dependent Role="RequestsTB">
+        <PropertyRef Name="Emp_ID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Requests_DBEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="DepartmentTBs" EntityType="Self.DepartmentTB" />
+    <EntitySet Name="EmployeeTBs" EntityType="Self.EmployeeTB" />
+    <EntitySet Name="RequestsTBs" EntityType="Self.RequestsTB" />
+    <AssociationSet Name="FK_EmployeeTB_DepartmentTB" Association="Self.FK_EmployeeTB_DepartmentTB">
+      <End Role="DepartmentTB" EntitySet="DepartmentTBs" />
+      <End Role="EmployeeTB" EntitySet="EmployeeTBs" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RequestsTB_EmployeeTB" Association="Self.FK_RequestsTB_EmployeeTB">
+      <End Role="EmployeeTB" EntitySet="EmployeeTBs" />
+      <End Role="RequestsTB" EntitySet="RequestsTBs" />
+    </AssociationSet>
+    <EntitySet Name="View_allData" EntityType="Requests_DBModel.View_allData" />
+  </EntityContainer>
+  <EntityType Name="View_allData">
+    <Key>
+      <PropertyRef Name="Emp_ID" />
+    </Key>
+    <Property Name="Dep_ID" Type="Int32" Nullable="false" />
+    <Property Name="Dep_Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Emp_ID" Type="Int64" Nullable="false" />
+    <Property Name="Emp_Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Emp_Title" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Expr1" Type="Int32" Nullable="false" />
+    <Property Name="Req_ID" Type="Int64" Nullable="false" />
+    <Property Name="Expr2" Type="Int64" Nullable="false" />
+    <Property Name="Date_From" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Date_To" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Returning_Date" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="DateOfSub" Type="DateTime" Precision="0" />
+    <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="TotalDays" Type="Int32" />
+  </EntityType>
+</Schema>

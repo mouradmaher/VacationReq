@@ -1,0 +1,57 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Requests_DBModelStoreContainer" CdmEntityContainer="Requests_DBEntities">
+    <EntitySetMapping Name="DepartmentTBs">
+      <EntityTypeMapping TypeName="Requests_DBModel.DepartmentTB">
+        <MappingFragment StoreEntitySet="DepartmentTB">
+          <ScalarProperty Name="Dep_ID" ColumnName="Dep_ID" />
+          <ScalarProperty Name="Dep_Name" ColumnName="Dep_Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EmployeeTBs">
+      <EntityTypeMapping TypeName="Requests_DBModel.EmployeeTB">
+        <MappingFragment StoreEntitySet="EmployeeTB">
+          <ScalarProperty Name="Emp_ID" ColumnName="Emp_ID" />
+          <ScalarProperty Name="Emp_Name" ColumnName="Emp_Name" />
+          <ScalarProperty Name="Emp_Title" ColumnName="Emp_Title" />
+          <ScalarProperty Name="Dep_ID" ColumnName="Dep_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RequestsTBs">
+      <EntityTypeMapping TypeName="Requests_DBModel.RequestsTB">
+        <MappingFragment StoreEntitySet="RequestsTB">
+          <ScalarProperty Name="Req_ID" ColumnName="Req_ID" />
+          <ScalarProperty Name="Emp_ID" ColumnName="Emp_ID" />
+          <ScalarProperty Name="Date_From" ColumnName="Date_From" />
+          <ScalarProperty Name="Date_To" ColumnName="Date_To" />
+          <ScalarProperty Name="Returning_Date" ColumnName="Returning_Date" />
+          <ScalarProperty Name="DateOfSub" ColumnName="DateOfSub" />
+          <ScalarProperty Name="Notes" ColumnName="Notes" />
+          <ScalarProperty Name="TotalDays" ColumnName="TotalDays" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="View_allData">
+      <EntityTypeMapping TypeName="Requests_DBModel.View_allData">
+        <MappingFragment StoreEntitySet="View_allData">
+          <ScalarProperty Name="TotalDays" ColumnName="TotalDays" />
+          <ScalarProperty Name="Notes" ColumnName="Notes" />
+          <ScalarProperty Name="DateOfSub" ColumnName="DateOfSub" />
+          <ScalarProperty Name="Returning_Date" ColumnName="Returning_Date" />
+          <ScalarProperty Name="Date_To" ColumnName="Date_To" />
+          <ScalarProperty Name="Date_From" ColumnName="Date_From" />
+          <ScalarProperty Name="Expr2" ColumnName="Expr2" />
+          <ScalarProperty Name="Req_ID" ColumnName="Req_ID" />
+          <ScalarProperty Name="Expr1" ColumnName="Expr1" />
+          <ScalarProperty Name="Emp_Title" ColumnName="Emp_Title" />
+          <ScalarProperty Name="Emp_Name" ColumnName="Emp_Name" />
+          <ScalarProperty Name="Emp_ID" ColumnName="Emp_ID" />
+          <ScalarProperty Name="Dep_Name" ColumnName="Dep_Name" />
+          <ScalarProperty Name="Dep_ID" ColumnName="Dep_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

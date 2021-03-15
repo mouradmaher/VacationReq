@@ -1,0 +1,298 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Requests_DBModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="DepartmentTB">
+          <Key>
+            <PropertyRef Name="Dep_ID" />
+          </Key>
+          <Property Name="Dep_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Dep_Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EmployeeTB">
+          <Key>
+            <PropertyRef Name="Emp_ID" />
+          </Key>
+          <Property Name="Emp_ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Emp_Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Emp_Title" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Dep_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="RequestsTB">
+          <Key>
+            <PropertyRef Name="Req_ID" />
+          </Key>
+          <Property Name="Req_ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Emp_ID" Type="bigint" Nullable="false" />
+          <Property Name="Date_From" Type="date" Nullable="false" />
+          <Property Name="Date_To" Type="date" Nullable="false" />
+          <Property Name="Returning_Date" Type="date" Nullable="false" />
+          <Property Name="DateOfSub" Type="date" Nullable="false" />
+          <Property Name="Notes" Type="nvarchar(max)" />
+          <Property Name="TotalDays" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Requests_DB.dbo.View_allData' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="View_allData">
+          <Key>
+            
+            
+            <PropertyRef Name="Emp_ID" />
+            
+            
+            
+            
+            
+            
+            
+            
+          </Key>
+          <Property Name="Dep_ID" Type="int" Nullable="false" />
+          <Property Name="Dep_Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Emp_ID" Type="bigint" Nullable="false" />
+          <Property Name="Emp_Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Emp_Title" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Expr1" Type="int" Nullable="false" />
+          <Property Name="Req_ID" Type="bigint" Nullable="false" />
+          <Property Name="Expr2" Type="bigint" Nullable="false" />
+          <Property Name="Date_From" Type="date" Nullable="false" />
+          <Property Name="Date_To" Type="date" Nullable="false" />
+          <Property Name="Returning_Date" Type="date" Nullable="false" />
+          <Property Name="DateOfSub" Type="date" />
+          <Property Name="Notes" Type="nvarchar(max)" />
+          <Property Name="TotalDays" Type="int" />
+        </EntityType>
+        <Association Name="FK_EmployeeTB_DepartmentTB">
+          <End Role="DepartmentTB" Type="Self.DepartmentTB" Multiplicity="1" />
+          <End Role="EmployeeTB" Type="Self.EmployeeTB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DepartmentTB">
+              <PropertyRef Name="Dep_ID" />
+            </Principal>
+            <Dependent Role="EmployeeTB">
+              <PropertyRef Name="Dep_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RequestsTB_EmployeeTB">
+          <End Role="EmployeeTB" Type="Self.EmployeeTB" Multiplicity="1" />
+          <End Role="RequestsTB" Type="Self.RequestsTB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeeTB">
+              <PropertyRef Name="Emp_ID" />
+            </Principal>
+            <Dependent Role="RequestsTB">
+              <PropertyRef Name="Emp_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Requests_DBModelStoreContainer">
+          <EntitySet Name="DepartmentTB" EntityType="Self.DepartmentTB" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EmployeeTB" EntityType="Self.EmployeeTB" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RequestsTB" EntityType="Self.RequestsTB" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="View_allData" EntityType="Self.View_allData" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [View_allData].[Dep_ID] AS [Dep_ID], 
+    [View_allData].[Dep_Name] AS [Dep_Name], 
+    [View_allData].[Emp_ID] AS [Emp_ID], 
+    [View_allData].[Emp_Name] AS [Emp_Name], 
+    [View_allData].[Emp_Title] AS [Emp_Title], 
+    [View_allData].[Expr1] AS [Expr1], 
+    [View_allData].[Req_ID] AS [Req_ID], 
+    [View_allData].[Expr2] AS [Expr2], 
+    [View_allData].[Date_From] AS [Date_From], 
+    [View_allData].[Date_To] AS [Date_To], 
+    [View_allData].[Returning_Date] AS [Returning_Date], 
+    [View_allData].[DateOfSub] AS [DateOfSub], 
+    [View_allData].[Notes] AS [Notes], 
+    [View_allData].[TotalDays] AS [TotalDays]
+    FROM [dbo].[View_allData] AS [View_allData]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_EmployeeTB_DepartmentTB" Association="Self.FK_EmployeeTB_DepartmentTB">
+            <End Role="DepartmentTB" EntitySet="DepartmentTB" />
+            <End Role="EmployeeTB" EntitySet="EmployeeTB" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RequestsTB_EmployeeTB" Association="Self.FK_RequestsTB_EmployeeTB">
+            <End Role="EmployeeTB" EntitySet="EmployeeTB" />
+            <End Role="RequestsTB" EntitySet="RequestsTB" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="Requests_DBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="DepartmentTB">
+          <Key>
+            <PropertyRef Name="Dep_ID" />
+          </Key>
+          <Property Name="Dep_ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Dep_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="EmployeeTBs" Relationship="Self.FK_EmployeeTB_DepartmentTB" FromRole="DepartmentTB" ToRole="EmployeeTB" />
+        </EntityType>
+        <EntityType Name="EmployeeTB">
+          <Key>
+            <PropertyRef Name="Emp_ID" />
+          </Key>
+          <Property Name="Emp_ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Emp_Name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Emp_Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Dep_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="DepartmentTB" Relationship="Self.FK_EmployeeTB_DepartmentTB" FromRole="EmployeeTB" ToRole="DepartmentTB" />
+          <NavigationProperty Name="RequestsTBs" Relationship="Self.FK_RequestsTB_EmployeeTB" FromRole="EmployeeTB" ToRole="RequestsTB" />
+        </EntityType>
+        <EntityType Name="RequestsTB">
+          <Key>
+            <PropertyRef Name="Req_ID" />
+          </Key>
+          <Property Name="Req_ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Emp_ID" Type="Int64" Nullable="false" />
+          <Property Name="Date_From" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Date_To" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Returning_Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="DateOfSub" Type="DateTime" Precision="0" Nullable="false" />
+          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TotalDays" Type="Int32" />
+          <NavigationProperty Name="EmployeeTB" Relationship="Self.FK_RequestsTB_EmployeeTB" FromRole="RequestsTB" ToRole="EmployeeTB" />
+        </EntityType>
+        <Association Name="FK_EmployeeTB_DepartmentTB">
+          <End Role="DepartmentTB" Type="Self.DepartmentTB" Multiplicity="1" />
+          <End Role="EmployeeTB" Type="Self.EmployeeTB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="DepartmentTB">
+              <PropertyRef Name="Dep_ID" />
+            </Principal>
+            <Dependent Role="EmployeeTB">
+              <PropertyRef Name="Dep_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_RequestsTB_EmployeeTB">
+          <End Role="EmployeeTB" Type="Self.EmployeeTB" Multiplicity="1" />
+          <End Role="RequestsTB" Type="Self.RequestsTB" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EmployeeTB">
+              <PropertyRef Name="Emp_ID" />
+            </Principal>
+            <Dependent Role="RequestsTB">
+              <PropertyRef Name="Emp_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Requests_DBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="DepartmentTBs" EntityType="Self.DepartmentTB" />
+          <EntitySet Name="EmployeeTBs" EntityType="Self.EmployeeTB" />
+          <EntitySet Name="RequestsTBs" EntityType="Self.RequestsTB" />
+          <AssociationSet Name="FK_EmployeeTB_DepartmentTB" Association="Self.FK_EmployeeTB_DepartmentTB">
+            <End Role="DepartmentTB" EntitySet="DepartmentTBs" />
+            <End Role="EmployeeTB" EntitySet="EmployeeTBs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_RequestsTB_EmployeeTB" Association="Self.FK_RequestsTB_EmployeeTB">
+            <End Role="EmployeeTB" EntitySet="EmployeeTBs" />
+            <End Role="RequestsTB" EntitySet="RequestsTBs" />
+          </AssociationSet>
+          <EntitySet Name="View_allData" EntityType="Requests_DBModel.View_allData" />
+        </EntityContainer>
+        <EntityType Name="View_allData">
+          <Key>
+            <PropertyRef Name="Emp_ID" />
+          </Key>
+          <Property Name="Dep_ID" Type="Int32" Nullable="false" />
+          <Property Name="Dep_Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Emp_ID" Type="Int64" Nullable="false" />
+          <Property Name="Emp_Name" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Emp_Title" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Expr1" Type="Int32" Nullable="false" />
+          <Property Name="Req_ID" Type="Int64" Nullable="false" />
+          <Property Name="Expr2" Type="Int64" Nullable="false" />
+          <Property Name="Date_From" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Date_To" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="Returning_Date" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="DateOfSub" Type="DateTime" Precision="0" />
+          <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="TotalDays" Type="Int32" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Requests_DBModelStoreContainer" CdmEntityContainer="Requests_DBEntities">
+          <EntitySetMapping Name="DepartmentTBs">
+            <EntityTypeMapping TypeName="Requests_DBModel.DepartmentTB">
+              <MappingFragment StoreEntitySet="DepartmentTB">
+                <ScalarProperty Name="Dep_ID" ColumnName="Dep_ID" />
+                <ScalarProperty Name="Dep_Name" ColumnName="Dep_Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmployeeTBs">
+            <EntityTypeMapping TypeName="Requests_DBModel.EmployeeTB">
+              <MappingFragment StoreEntitySet="EmployeeTB">
+                <ScalarProperty Name="Emp_ID" ColumnName="Emp_ID" />
+                <ScalarProperty Name="Emp_Name" ColumnName="Emp_Name" />
+                <ScalarProperty Name="Emp_Title" ColumnName="Emp_Title" />
+                <ScalarProperty Name="Dep_ID" ColumnName="Dep_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="RequestsTBs">
+            <EntityTypeMapping TypeName="Requests_DBModel.RequestsTB">
+              <MappingFragment StoreEntitySet="RequestsTB">
+                <ScalarProperty Name="Req_ID" ColumnName="Req_ID" />
+                <ScalarProperty Name="Emp_ID" ColumnName="Emp_ID" />
+                <ScalarProperty Name="Date_From" ColumnName="Date_From" />
+                <ScalarProperty Name="Date_To" ColumnName="Date_To" />
+                <ScalarProperty Name="Returning_Date" ColumnName="Returning_Date" />
+                <ScalarProperty Name="DateOfSub" ColumnName="DateOfSub" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="TotalDays" ColumnName="TotalDays" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="View_allData">
+            <EntityTypeMapping TypeName="Requests_DBModel.View_allData">
+              <MappingFragment StoreEntitySet="View_allData">
+                <ScalarProperty Name="TotalDays" ColumnName="TotalDays" />
+                <ScalarProperty Name="Notes" ColumnName="Notes" />
+                <ScalarProperty Name="DateOfSub" ColumnName="DateOfSub" />
+                <ScalarProperty Name="Returning_Date" ColumnName="Returning_Date" />
+                <ScalarProperty Name="Date_To" ColumnName="Date_To" />
+                <ScalarProperty Name="Date_From" ColumnName="Date_From" />
+                <ScalarProperty Name="Expr2" ColumnName="Expr2" />
+                <ScalarProperty Name="Req_ID" ColumnName="Req_ID" />
+                <ScalarProperty Name="Expr1" ColumnName="Expr1" />
+                <ScalarProperty Name="Emp_Title" ColumnName="Emp_Title" />
+                <ScalarProperty Name="Emp_Name" ColumnName="Emp_Name" />
+                <ScalarProperty Name="Emp_ID" ColumnName="Emp_ID" />
+                <ScalarProperty Name="Dep_Name" ColumnName="Dep_Name" />
+                <ScalarProperty Name="Dep_ID" ColumnName="Dep_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
